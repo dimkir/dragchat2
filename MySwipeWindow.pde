@@ -15,7 +15,7 @@ class MySwipeWindow extends SwipeableWindow
     {
           super(x, y , w, h ,prnt);
           setCatchSwipes(true); // obviously catching swipes and drags is not compatible. Or at least we won't make it compatible for siplicity now.
-          setOnSwipeListener(mMySwipeListener());
+          setOnSwipeListener(mMySwipeListener);
     }
     
     @Override
