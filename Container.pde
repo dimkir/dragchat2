@@ -22,13 +22,20 @@ abstract class Container
   
     void addChild(Container container){
         mChildren.add(container);
+    }
+
+    void removeChild(Container container){
+        // TODO: don't know if this one can create problem once child is removed whilst there's still loop over children.
+        if ( mChildren.contains(container) ){
+          mChildren.remove(container);
+        }
     }    
 
   
-    void draw(){
-        drawChildren(); 
-    }
-
+    // should be abstract, as Container doesn't have GetX() GetY() and this is why cannot perform  'translate' operation
+    abstract void draw(); 
+    
+    
     private void updateChildren(){
         Container[] children = getChildren();
         if (children != null){

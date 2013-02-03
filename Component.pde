@@ -79,6 +79,18 @@ abstract class Component extends Container
     }  
   
   
+
+    void draw(){
+        pushMatrix();
+          translate(getX(), getY());
+          drawMyself();
+          drawChildren();
+        popMatrix(); 
+    }
+
+    // this one should be overridden    
+    abstract void drawMyself();
+  
     // ######################################################################  
     // ####################### ABSOLUTE COORDINATE FUNCTIONS ################
     // ######################################################################    
