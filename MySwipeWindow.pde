@@ -5,7 +5,7 @@
 
 class MySwipeWindow extends SwipeableWindow
 {
-    PVector swipeSpeed = new PVector(0,0);
+    PVector mSwipeSpeed = new PVector(0,0);
     boolean mAnimateMove = false;
     
     MySwipeListener mMySwipeListener = new MySwipeListener(); //inner class
@@ -25,19 +25,17 @@ class MySwipeWindow extends SwipeableWindow
         
         
         if ( mAnimateMove) {
-              if ( swipeSpeed.equals(0.0, 0.0) {
+              if ( mSwipeSpeed.equals(0.0, 0.0) {
                   mAnimateMove = false;
               }
               else{
-                setX(getX() + swipeSpeed.x);
-                setY(getY() + swipeSpeed.y);
-                swipeSpeed.decreaseBySomeValue(0.2,0.2); // ?? need to fix this
+                setX(getX() + mSwipeSpeed.x);
+                setY(getY() + mSwipeSpeed.y);
+                mSwipeSpeed.decreaseBySomeValue(0.2,0.2); // ?? need to fix this
               }   
              
         }
     }//void updateMyself()
- 
- 
  
 
 //  I put methods for catching swipe here, so they stay in one class.
@@ -48,7 +46,7 @@ class MySwipeWindow extends SwipeableWindow
   {
       boolean onSwipe(Component cmp, SwipeEvent swipeEvent){
           if ( swipeEvent.isFastSwipeToSide() ){
-              mSwipeSpeed.set(swipeEvent.getSwipeSpeed);
+              mSwipeSpeed.set(swipeEvent.getSwipeSpeed());
               mAnimateMove = true;
               return true;
           }
