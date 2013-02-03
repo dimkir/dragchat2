@@ -11,8 +11,9 @@ class MySwipeWindow extends SwipeableWindow
     MySwipeListener mMySwipeListener = new MySwipeListener(); //inner class
      
   
-    MySwipeWindow??
+    MySwipeWindow(float x, float y, float w, float h, Component prnt)
     {
+          super(x, y , w, h ,prnt);
           setCatchSwipes(true); // obviously catching swipes and drags is not compatible. Or at least we won't make it compatible for siplicity now.
           setOnSwipeListener(mMySwipeListener());
     }
