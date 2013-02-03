@@ -8,13 +8,13 @@ class MySwipeWindow extends SwipeableWindow
     PVector swipeSpeed = new PVector(0,0);
     boolean mAnimateMove = false;
     
-    MySwipeListener = new MySwipeListener();
-    
+    MySwipeListener mMySwipeListener = new MySwipeListener(); //inner class
+     
   
     MySwipeWindow??
     {
           setCatchSwipes(true); // obviously catching swipes and drags is not compatible. Or at least we won't make it compatible for siplicity now.
-          setOnSwipeListener(this);
+          setOnSwipeListener(mMySwipeListener());
     }
     
     @Override

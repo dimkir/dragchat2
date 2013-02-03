@@ -24,8 +24,8 @@ class MyCircle extends Component
       mRadius = radius;      
   }
   
-  @Override
-  void draw(){
+  
+  void drawMyself(){
       fill(mFill);
         // here we comment ellipse.
                 //ellipse(getX() + mRadius, getY() + mRadius, mRadius * 2 , mRadius * 2);
