@@ -30,10 +30,10 @@ class MyCircle extends Component
         // here we comment ellipse.
                 //ellipse(getX() + mRadius, getY() + mRadius, mRadius * 2 , mRadius * 2);
                 //fill(mFill, 100);
-      rect(getX(), getY(), getW(), getH());
+      rect(0, 0, getW(), getH());
       // draw cross
-        line(getX(), getBBoxBottom(), getBBoxRight() , getY() );
-        line(getX(), getY()     ,  getBBoxRight() , getBBoxBottom() );
+        line(0, getH(), getW() , 0);
+        line(0, 0    ,  getW(), getH() );
   }
   
   @Override
