@@ -8,6 +8,8 @@ interface IOnSwipeListener {
 class SwipeEvent{
     private PVector mSwipeVelocity;
     private Component mComp;
+    
+    private static final int C_QUICK_VELOCITY_X = 10;
     // PVector is velocity of the swipe
     SwipeEvent(Component comp, PVector velocity){
         mComp = comp;
@@ -17,23 +19,40 @@ class SwipeEvent{
     PVector getSwipeVelocity(){
         return mSwipeVelocity;
     }
+    
+    boolean isFastSwipeToSide(){
+        if ( Math.abs(mSwipeVelocity.x) > C_QUICK_VELOCITY_X ){
+            return true;
+        }
+        else{
+            println("SwipeEvent::isFastSwipeToSide() - swipe horizontal velocity x is slow (less than " + C_QUICK_VELOCITY_X + ") = " + mSwipeVelocity.x);
+            return false;
+        } 
+    }
+    
 }
 
 //
 // remember, maybe I want to swipe what's INSIDE the window with the swipe
 //
-class SwipeableWindow extends MyWindowWithMouseEvents
+abstract class SwipeableWindow extends MyWindowWithMouseEvents
 {
     IOnSwipeListener mSwipeListener;
     
 
-    MouseVector prevPos  = new MouseVector(0,0);    
-    MouseVector curPos   = new MouseVector(0,0);
+    MouseVector prevPos  = new MouseVector(0.0, 0.0);    
+    MouseVector curPos   = new MouseVector(0.0, 0.0);
+    
+    float mMouseOffsetX, mMouseOffsetY;
     
     private boolean mBehaviourFollowMouse = true; // behavor which tells window to follow mouse on grab.
     private boolean mFollowMouseMovement = false; // flag which tells if he's following mouse movement now
     private boolean mListeningToTheMouseMovement = false; // this is when we listen to mouse movement
     
+
+    SwipeableWindow(float x, float y , float w , float h , Component prnt){
+        super(x, y, w, h, prnt);
+    }
 
     
     void setOnSwipeListener(IOnSwipeListener listener){
@@ -60,9 +79,13 @@ class SwipeableWindow extends MyWindowWithMouseEvents
        prevPos.setMouseClick( evt, millis() );
          
        if ( mFollowMouseMovement ){
-           advance position to the mouse position
+           // TODO: add 'mouse offset adjustment'
+           setX( evt.getX() + mMouseOffsetX );
+           setY( evt.getY() + mMouseOffsetY );
+           //advance position to the mouse position
        }
-       return false;
+       // return false; // ? do we consume the event? why not? then it will be faster?
+       return true;     // ^^^^ 
    }
    
    @Override
@@ -70,10 +93,21 @@ class SwipeableWindow extends MyWindowWithMouseEvents
        if ( mListeningToTheMouseMovement ){
          return false; // got another click whilst listening to the previous one, ignore it.
        }
-
+       
+       if ( !eventWithinBoxAbsolute(evt) ){
+           return false; // the press was outside of window
+       }
+        
+       mMouseOffsetX = getAbsoluteX() - evt.getX();
+       mMouseOffsetY = getAbsoluteY() - evt.getY(); 
        // let's save coords
        mListeningToTheMouseMovement = true;
        prevPos.setMouseClick( evt, millis() );
+       
+       if ( mBehaviourFollowMouse ){ // we need window behaviour 'follow cursor position when grabbed' then
+           // TODO: add saving of mouse offset 
+           mFollowMouseMovement = true;      // this is current status flag, which allows us to know that we're currently need to location to the mouseposition
+       }       
        
        // how do we distinguish click from swipe?
        // click starts and ends at almost the same spot, within n milliseconds.
@@ -122,9 +156,10 @@ class MouseVector extends PVector
 {
     int mMillis;
     PVector mLocation = new PVector(0.0, 0.0);
-    PVector(float x, float y)
+
+    MouseVector(float x, float y)
     {
-        super(x, y);
+        super(x, y, 0.0);
     }
     
     void setMouseClick(InputEvent evt , int vMillis){
@@ -145,8 +180,4 @@ class MouseVector extends PVector
     }
     
     
-}
-
-class MouseSpeedMeasurer
-{
 }

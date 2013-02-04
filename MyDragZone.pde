@@ -33,18 +33,29 @@ implements IComponentMotionListener, IComponentDropListener
        
    }    
   
-   @Override
-   void draw(){
-       pushMatrix();
-       translate(getX(), getY());
+  
+  @Override
+  void drawMyself(){
            // background color and frame
            fill(0x1100FF00);
            rect(0, 0, getW(), getH(), 10);
            //rect(getX(), getY(), getW(), getH(), 10);
-           drawWordGrid();
-           super.draw();
-       popMatrix();
-   }
+           drawWordGrid();    
+  }  
+  
+  
+//   @Override
+//   void draw(){
+//       pushMatrix();
+//       translate(getX(), getY());
+//           // background color and frame
+//           fill(0x1100FF00);
+//           rect(0, 0, getW(), getH(), 10);
+//           //rect(getX(), getY(), getW(), getH(), 10);
+//           drawWordGrid();
+//           super.draw();
+//       popMatrix();
+//   }
    
    
    /*

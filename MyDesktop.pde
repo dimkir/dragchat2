@@ -19,12 +19,8 @@ implements IMotionTrafficController
     void onCreate(){
     }
     
-    
-    @Override
-    void draw(){
-        pushMatrix();
-        translate(getX(), getY());
-        
+    @Override // abstract    
+    void drawMyself(){
               drawBackgroundImage();
               
               fill(128,50);
@@ -34,11 +30,27 @@ implements IMotionTrafficController
               String txt = "this is desktop";
               textAlign(RIGHT, BOTTOM);
               text("this is desktop. framerate: " + round(frameRate), getW() - textWidth(txt) - C_LABEL_PADDING, getH() - C_LABEL_PADDING);
-          
-              super.draw();
-              
-        popMatrix();
     }
+    
+//    @Override
+//    void draw(){
+//        pushMatrix();
+//        translate(getX(), getY());
+//        
+//              drawBackgroundImage();
+//              
+//              fill(128,50);
+//              //rect(getX(), getY(), getW(), getH() );
+//              rect(0, 0, getW(), getH() );
+//          
+//              String txt = "this is desktop";
+//              textAlign(RIGHT, BOTTOM);
+//              text("this is desktop. framerate: " + round(frameRate), getW() - textWidth(txt) - C_LABEL_PADDING, getH() - C_LABEL_PADDING);
+//          
+//              super.draw();
+//              
+//        popMatrix();
+//    }
 
 
     private void drawBackgroundImage(){

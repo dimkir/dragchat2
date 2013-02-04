@@ -46,7 +46,7 @@ abstract class Container
     }
   
   
-    private void drawChildren(){
+    protected void drawChildren(){
         Container[] children = getChildren();
         if (children != null){
             for (int i = 0 ; i < children.length ; i++){

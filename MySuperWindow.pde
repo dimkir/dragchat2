@@ -13,7 +13,7 @@ class MySuperWindow extends MyDraggableWindow
          
          location = new PVector(getW() / 2, getH() /2);
          
-         setRestrictDraggingToParent(true); // this is method should restrict moving to the box of the parent component(window)
+         //setRestrictDraggingToParent(true); // this is method should restrict moving to the box of the parent component(window)
      }
      
      private PVector location;

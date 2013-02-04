@@ -1,11 +1,3 @@
-/*
-  Holds methods which are used to retrive 'word' data from the object
-*/
-interface IWordHolder{
-    String getCurrentWord();
-    String getForeignWord();
-    String getNativeWord();
-}
 
 
 /*
@@ -202,18 +194,7 @@ class MyWindow extends Component
       }
     }
   
-
-    @Override
-    void draw(){
-        pushMatrix();
-        translate(getX(), getY());
-      
-        drawMyself();
-            super.draw(); // draws children
-        popMatrix();
-    }
-    
-    private void drawMyself(){
+    void drawMyself(){
         // here we can draw window background
               if ( mDisplayTranslation ){
                 fill(#FFFF00);

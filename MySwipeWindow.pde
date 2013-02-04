@@ -5,7 +5,7 @@
 
 class MySwipeWindow extends SwipeableWindow
 {
-    PVector mSwipeSpeed = new PVector(0,0);
+    PVector mSwipeSpeed = new PVector(0,0,0);
     boolean mAnimateMove = false;
     
     MySwipeListener mMySwipeListener = new MySwipeListener(); //inner class
@@ -14,24 +14,32 @@ class MySwipeWindow extends SwipeableWindow
     MySwipeWindow(float x, float y, float w, float h, Component prnt)
     {
           super(x, y , w, h ,prnt);
-          setCatchSwipes(true); // obviously catching swipes and drags is not compatible. Or at least we won't make it compatible for siplicity now.
+          // TODO: need to decide if we need CatchSwipes or not
+          //setCatchSwipes(true); // obviously catching swipes and drags is not compatible. Or at least we won't make it compatible for siplicity now.
           setOnSwipeListener(mMySwipeListener);
     }
     
     @Override
+    void drawMyself(){
+        fill(#0000FF);
+        rect(0,0, getW(), getH(), 10);
+    }
+    
+    
+    @Override
     void updateMyself(){
-        println("runnign update myself");
-        throw new RuntimeException("Running MySwipeWindow");
+//        println("runnign update myself");
+//        throw new RuntimeException("Running MySwipeWindow");
         
         
         if ( mAnimateMove) {
-              if ( mSwipeSpeed.equals(0.0, 0.0) {
+              if ( mSwipeSpeed.mag() < 5){
                   mAnimateMove = false;
               }
               else{
                 setX(getX() + mSwipeSpeed.x);
                 setY(getY() + mSwipeSpeed.y);
-                mSwipeSpeed.decreaseBySomeValue(0.2,0.2); // ?? need to fix this
+                mSwipeSpeed.mult(0.8); // decreasing speed by 20% each time.
               }   
              
         }
@@ -44,14 +52,13 @@ class MySwipeWindow extends SwipeableWindow
   class MySwipeListener 
   implements IOnSwipeListener  
   {
-      boolean onSwipe(Component cmp, SwipeEvent swipeEvent){
+      void onSwipe(Component cmp, SwipeEvent swipeEvent){
           if ( swipeEvent.isFastSwipeToSide() ){
-              mSwipeSpeed.set(swipeEvent.getSwipeSpeed());
+              mSwipeSpeed.set(swipeEvent.getSwipeVelocity());
               mAnimateMove = true;
-              return true;
+              return;
           }
           println("got swipe event, but it is not too fast");
-          return false; // we don't consume it          
       }
   }
     

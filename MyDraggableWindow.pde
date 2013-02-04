@@ -111,13 +111,18 @@ class MyDraggableWindow extends MyWindowWithMouseEvents
     }
     
     
+//    @Override
+//    void draw(){
+//        pushMatrix();
+//        translate(getX(), getY());
+//            rect(0,0,getW(), getH());            
+//            super.draw();
+//        popMatrix();
+//    }
+    
     @Override
-    void draw(){
-        pushMatrix();
-        translate(getX(), getY());
-            rect(0,0,getW(), getH());
-            super.draw();
-        popMatrix();
+    void drawMyself(){
+        rect(0,0,getW(), getH());
     }
     
     

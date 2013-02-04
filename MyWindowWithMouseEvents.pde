@@ -1,4 +1,4 @@
-class MyWindowWithMouseEvents extends Component
+abstract class MyWindowWithMouseEvents extends Component
 implements EventListener
 {
    
@@ -40,14 +40,13 @@ implements EventListener
        
    }
    
-   
-   @Override
-   void draw(){
-        fill(255);
-        text("Hello", 0 , 0);
-   }
-   
-   
+
+//   void drawMyself()
+//   {
+//        fill(255);
+//        text("MyWindowWithMouseEvents::drawMyself(): NEEDS TO BE OVERRIDDEN", 0 , 0);
+//   }
+
    boolean onMouseMove(InputEvent evt){
        return false;
    }
